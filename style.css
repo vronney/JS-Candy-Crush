@@ -90,7 +90,7 @@ body {
     }
 }
 
-@media screen and (min-width: 400px) {
+@media screen and (max-width: 415px) {
     .grid {
         max-width: 92vw;
     }
@@ -101,7 +101,7 @@ body {
     }
 }
 
-@media screen and (min-width: 375px) {
+@media screen and (max-width: 386px) {
     .grid {
         max-width: 92vw;
     }
