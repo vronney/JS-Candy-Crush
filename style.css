@@ -36,6 +36,7 @@ body {
   background-image: url("images/candy-crush-lg-background.jpg");
   max-width: 100vh;
   display: flex;
+  background-repeat: no-repeat;
 }
 
 .score-board {
@@ -107,7 +108,7 @@ body {
     }
     .grid div {
         height: 50px;
-        width: 43px;
+        width: 41px;
         background-size: 45px;
     }
 }
