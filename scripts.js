@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let squareIdBeingDragged
     let squareIdBeingReplaced
     
+    // Drag on pc
     squares.forEach(square => square.addEventListener('dragstart', dragStart))
     squares.forEach(square => square.addEventListener('dragend', dragEnd))
     squares.forEach(square => square.addEventListener('dragover', dragOver))
@@ -43,6 +44,15 @@ document.addEventListener('DOMContentLoaded', () => {
     squares.forEach(square => square.addEventListener('drageleave', dragLeave))
     squares.forEach(square => square.addEventListener('drop', dragDrop))
     
+    // Touch drag on mobile
+    squares.forEach(square => square.addEventListener('touchstart', touchStart))
+
+    function touchStart() {
+        colorBeingDragged = this.style.backgroundImage
+        squareIdBeingDragged = parseInt(this.id)
+        // this.style.backgroundImage = ''
+    }
+
     function dragStart(){
         colorBeingDragged = this.style.backgroundImage
         squareIdBeingDragged = parseInt(this.id)

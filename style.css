@@ -58,7 +58,7 @@ body {
 
 @media screen and (max-width: 576px) {
     body {
-        background-image: url("images/candy-crush-sm-background.jpeg");
+        background-image: url("images/candy-crush-md-background.jpg");
         background-repeat: no-repeat;
         background-size: cover;
         height: 100vh;
@@ -76,7 +76,7 @@ body {
     .grid {
         position: absolute;
         top: 50px;
-        height: 600px;
+        height: 500px;
         max-width: 86vw;
         min-width: 0;
         margin-left: auto;
@@ -108,5 +108,6 @@ body {
     .grid div {
         height: 50px;
         width: 43px;
+        background-size: 45px;
     }
 }
