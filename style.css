@@ -76,7 +76,7 @@ body {
     .grid {
         position: absolute;
         top: 50px;
-        height: 500px;
+        height: 450px;
         max-width: 86vw;
         min-width: 0;
         margin-left: auto;
