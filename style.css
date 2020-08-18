@@ -1,9 +1,9 @@
-.grid {
-    height: 560px;
-    min-width: 560px;
+.board {
+    max-width: 36% !important;
+    margin-left: auto;
+    margin-right: auto;
     display: flex;
     flex-wrap: wrap;
-    margin-left: 80px;
     margin-top: 50px;
     background-color: rgba(109, 127, 151, 0.5);
     padding:5px;
@@ -12,7 +12,7 @@
     color: #85796b;
 }
 
-.grid div {
+.board div {
     height: 70px;
     width: 70px;
 }
@@ -34,21 +34,18 @@ h1 {
 
 body {
   background-image: url("images/candy-crush-lg-background.jpg");
-  max-width: 100vh;
-  display: flex;
+  /* max-width: 100vh;
+  display: flex; */
   background-repeat: no-repeat;
 }
 
 .score-board {
   background-color: pink;
   border-radius: 10px;
-  margin-top: 200px;
-  margin-left: 200px;
-  margin-bottom: 350px;
-  min-width: 200px;
-
-  display: flex;
-  flex-direction: column;
+  height: fit-content;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
   justify-content: space-between;
   align-items: center;
   text-align: center;
@@ -64,26 +61,27 @@ body {
         background-size: cover;
         height: 100vh;
     }
+    .row {
+        display: inline-block;
+    }
     .score-board {
-        margin-top: 0;
-        margin-left: auto;
-        margin-right: auto;
+        margin-top: 20px;
+        margin-left: auto !important;
+        margin-right: auto !important;
         min-width: 125px;
         height: 75px;
     }
     .score-board h3 {
-        margin-top: 10px;
+        font-size: 1.25em !important;
     }
-    .grid {
-        position: absolute;
-        top: 50px;
-        height: 450px;
-        max-width: 86vw;
-        min-width: 0;
-        margin-left: auto;
-        margin-right: auto;
+    #score {
+        font-size: 1.50em;
     }
-    .grid div {
+    .board {
+        padding-right: 0 !important;
+        padding-left: 0 !important;
+    }
+    .board div {
         height: 40px;
         width: 40px;
         background-repeat: no-repeat;
@@ -92,10 +90,10 @@ body {
 }
 
 @media screen and (max-width: 415px) {
-    .grid {
-        max-width: 92vw;
+    .board {
+        max-width: 92vw !important;
     }
-    .grid div {
+    .board div {
         height: 50px;
         width: 47px;
         background-size: 55px;
@@ -103,12 +101,19 @@ body {
 }
 
 @media screen and (max-width: 386px) {
-    .grid {
+    .board {
         max-width: 92vw;
     }
-    .grid div {
+    .board div {
         height: 50px;
-        width: 41px;
+        width: 37px;
         background-size: 45px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .board div {
+        width: 32px;
+        background-size: 36px;
     }
 }

@@ -1,10 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const grid = document.querySelector('.grid')
+    const grid = document.querySelector('.board')
     const scoreDisplay = document.getElementById('score')
     const width = 8
     const squares = []
     let score = 0
     
+    let active = false
+    let currentX
+    let currentY
+    let initialX
+    let initialY
+    let xOffset = 0
+    let yOffset = 0
     
     const candyColors = [
         'url(images/red-candy.png)',
@@ -45,24 +52,49 @@ document.addEventListener('DOMContentLoaded', () => {
     squares.forEach(square => square.addEventListener('drop', dragDrop))
     
     // Touch drag on mobile
-    squares.forEach(square => square.addEventListener('touchstart', touchStart))
+    squares.forEach(square => square.addEventListener('touchstart', dragStart, false))
+    squares.forEach(square => square.addEventListener('touchend', dragEnd, false))
+    squares.forEach(square => square.addEventListener('touchmove', dragOver, false))
 
-    function touchStart() {
+
+    function dragStart(e){
+      if (e.type === 'touchstart') {
+        initialX = e.touches[0].clientX - xOffset
+        initialY = e.touches[0].clientY - yOffset
+      } else {
+        initialX = e.clientX - xOffset
+        initialY = e.clientY - yOffset
+      }
+      if (e.target === squares[squareIdBeingDragged]) {
+        active = true
+      }
         colorBeingDragged = this.style.backgroundImage
         squareIdBeingDragged = parseInt(this.id)
-        // this.style.backgroundImage = ''
-    }
-
-    function dragStart(){
-        colorBeingDragged = this.style.backgroundImage
-        squareIdBeingDragged = parseInt(this.id)
+        console.log('Touch started')
         // this.style.backgroundImage = ''
     }
     
     function dragOver(e) {
-        e.preventDefault()
+        if (active) {
+          e.preventDefault()
+          
+          if (e.type === 'touchmove') {
+            currentX = e.touches[0].clientX - initialX
+            currentY = e.touches[0]/clientY - initialY
+          } else {
+            currentX = e.clientX - initialX
+            currentY = e.clientY - initialY
+          }
+          xOffset = currentX
+          yOffset = currentY
+
+          setTranslate(currentX, currentY, squares[squareIdBeingDragged])
+        }
     }
     
+    function setTranslate(xPos, yPos, el) {
+      el.style.transform = "translated3d(" + xPos + "px, " + yPos + "px, 0)"
+    }
     function dragEnter(e) {
         e.preventDefault()
     }
@@ -78,7 +110,11 @@ document.addEventListener('DOMContentLoaded', () => {
         squares[squareIdBeingDragged].style.backgroundImage = colorBeingReplaced
     }
     
-    function dragEnd() {
+    function dragEnd(e) {
+        initialX = currentX
+        initialY = currentY
+
+        active = false
         //What is a valid move?
         let validMoves = [squareIdBeingDragged -1 , squareIdBeingDragged -width, squareIdBeingDragged +1, squareIdBeingDragged +width]
         let validMove = validMoves.includes(squareIdBeingReplaced)
