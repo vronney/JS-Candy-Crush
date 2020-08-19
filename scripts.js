@@ -5,13 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const squares = []
     let score = 0
     
-    let active = false
-    let currentX
-    let currentY
-    let initialX
-    let initialY
-    let xOffset = 0
-    let yOffset = 0
+    let myX = ''
+    let myY = ''
+    let whichArt = ''
     
     const candyColors = [
         'url(images/red-candy.png)',
@@ -50,11 +46,34 @@ document.addEventListener('DOMContentLoaded', () => {
     squares.forEach(square => square.addEventListener('dragenter', dragEnter))
     squares.forEach(square => square.addEventListener('drageleave', dragLeave))
     squares.forEach(square => square.addEventListener('drop', dragDrop))
+    squares.forEach(square => square.addEventListener('touchstart', touchStart, false))
 
-    function dragStart(){
+    function touchStart(e) {
+    e.preventDefault()
+    let whichArt = e.target
+    let touch = e.touches[0]
+    let moveOffSetX = whichArt.offSetLeft - touch.pageX
+    let moveOffSetY = whichArt.offSetTop - touch.pageY
+
+    whichArt.style.zIndex = 10
+
+    whichArt.addEventListener('touchmove', function() {
+          let positionX = touch.pageX+moveOffSetX
+          let positionY = touch.pageY + moveOffSetY
+          whichArt.style.left = positionX + 'px'
+          whichArt.style.top  = positionY + 'px'
+      }, false)
+    }
+
+    function dragStart(e){
         colorBeingDragged = this.style.backgroundImage
         squareIdBeingDragged = parseInt(this.id)
         // this.style.backgroundImage = ''
+        whichArt = e.target
+        myX = e.offsetX === undefined ? e.layerX : e.offsetX
+        myY = e.offsetY === undefined ? e.layerY : e.offsetY
+        
+        whichArt.style.zIndex = 10
     }    
     function dragOver(e) {
         e.preventDefault()
@@ -67,11 +86,13 @@ document.addEventListener('DOMContentLoaded', () => {
         this.style.backgroundImage = ''
     }
     
-    function dragDrop() {
+    function dragDrop(e) {
         colorBeingReplaced = this.style.backgroundImage
         squareIdBeingReplaced = parseInt(this.id)
         this.style.backgroundImage = colorBeingDragged
         squares[squareIdBeingDragged].style.backgroundImage = colorBeingReplaced
+        whichArt.style.left = e.pageX - myX + 'px'
+        whichArt.style.top = e.pageY = myY + 'px'
     }
     
     function dragEnd() {
